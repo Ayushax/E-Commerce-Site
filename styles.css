@@ -1,0 +1,231 @@
+/* GLOBAL STYLES & RESET */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5; /* Light grey background */
+    line-height: 1.6;
+}
+
+/* --- HEADER & NAVIGATION (FLEXBOX) --- */
+.main-header {
+    background-color: #232f3e; /* Dark blue, Amazon-like header */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* Spreads items out */
+    align-items: center; /* Vertically centers items */
+    position: sticky; /* Keeps header visible */
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #ff9900; /* Amazon orange highlight */
+}
+
+.search-bar {
+    padding: 8px 15px;
+    width: 400px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.user-actions a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 5px;
+}
+
+.user-actions a:hover {
+    text-decoration: underline;
+    color: #ff9900;
+}
+
+/* --- HERO SECTION --- */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('images/hero-bg.jpg'); /* Use a background image here */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+    margin-bottom: 30px;
+}
+
+.hero-section h1 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #ff9900;
+    color: #232f3e;
+    text-decoration: none;
+    padding: 10px 25px;
+    border-radius: 4px;
+    margin-top: 20px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #e68a00;
+}
+
+/* --- PRODUCT GRID (CSS GRID) --- */
+.product-grid-container {
+    padding: 20px;
+    max-width: 1200px; /* Constrain content width */
+    margin: 0 auto;
+}
+
+.product-grid-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.product-grid {
+    display: grid;
+    /* Creates 4 equal columns for product cards */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px; /* Space between the cards */
+}
+
+/* --- PRODUCT CARD STYLING --- */
+.product-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    /* Your Hover Effect: Add smooth transition for visual changes */
+    transition: transform 0.3s, box-shadow 0.3s; 
+}
+
+/* **YOUR HOVER EFFECT IMPLEMENTATION** */
+.product-card:hover {
+    transform: translateY(-5px); /* Moves the card up slightly */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+}
+
+.product-img {
+    width: 100%;
+    height: 150px; /* Fixed height for consistent cards */
+    object-fit: contain; /* Ensures image fits without cropping */
+    margin-bottom: 15px;
+}
+
+.add-to-cart-btn {
+    background-color: #ff9900;
+    color: #232f3e;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: opacity 0.3s;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #e68a00;
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #ccc; /* Default grey color */
+    transition: color 0.3s;
+}
+
+.favorite-btn.favorited {
+    color: #ff0000; /* Red when favorited */
+}
+
+/* --- FOOTER --- */
+.main-footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+}
+    /* --- PRODUCT DETAIL PAGE LAYOUT --- */
+
+/* Centers the content and limits its width */
+.detail-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px; /* Add padding on the sides */
+}
+
+/* Flex container for the two main columns: Image and Info */
+.product-detail-layout {
+    display: flex;
+    gap: 40px; /* Space between the image and the text */
+    align-items: flex-start; /* Aligns content to the top */
+    padding: 40px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Image Column */
+.product-image-area {
+    flex: 1; /* Takes up 1 fraction of the space */
+    max-width: 500px; 
+}
+
+/* Info Column */
+.product-info-area {
+    flex: 1.5; /* Takes up a bit more space than the image */
+    padding-top: 10px;
+}
+
+/* Styling for the large price display */
+.product-info-area .price {
+    font-size: 2.5em;
+    color: #b12704; /* Amazon-like price red */
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.product-info-area hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #eee;
+}
+
+.product-info-area .category {
+    color: #666;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+/* When the screen is 768px wide or smaller, switch to a single column */
+@media (max-width: 768px) {
+    .product-detail-layout {
+        flex-direction: column; /* Stacks the image and info vertically */
+        padding: 20px;
+    }
+    
+    .product-image-area {
+        max-width: 100%; /* Image takes full width */
+    }
+}
