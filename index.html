@@ -1,55 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> GadgetzHub Home</title>
+    <title>GadgetzHub - The Best Online Shopping</title>
     <link rel="stylesheet" href="styles.css">
-
-    <script src="data.js"></script>
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"> 
 </head>
-
 <body>
 
-    <header class="main-header">
-        <div class="logo"><a href="index.html" style="color: #ff9900; text-decoration: none;">GadgetzHub</a></div>
-        <nav class="main-nav">
-            <input type="text" id="product-search" class="search-bar" placeholder="Search Electronics...">
-        </nav>
-        <div class="user-actions">
-            <div class="user-actions">
-                <a href="account.html" class="nav-link">Account</a>
-                <a href="cart.html" class="nav-link cart-icon">Cart (<span id="cart-count">0</span>)</a>
-            </div>
+    <header class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-store"></i> <span class="gadgetz-brand">Gadgetz</span><span class="hub-brand">Hub</span>
+        </a>
+        
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search for products, brands, and categories...">
+            <button onclick="performSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
+
+        <nav class="nav-links">
+            <a href="#category-grid"><i class="fa-solid fa-layer-group"></i> Categories</a>
+            <a href="#deals-grid"><i class="fa-solid fa-percent"></i> Deals</a>
+            <a href="account.html"><i class="fa-solid fa-user"></i> Account</a>
+        </nav>
+        
+        <a href="wishlist.html" class="wishlist-icon">
+            <i class="fa-solid fa-heart"></i>
+            <span id="wishlistAmount" class="cartAmount">0</span>
+        </a>
+        
+        <a href="cart.html" class="cart-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cartAmount" class="cartAmount">0</span>
+        </a>
     </header>
 
-  <main>
-    <section class="hero-section">
-        <h1>Deals on Smart Tech: Up to 40% Off!</h1>
-        <p>Explore the latest in high-performance electronics.</p>
-        <button class="cta-button" id="shopNowBtn">Shop Now</button>
-    </section>
+    <main>
+        <section class="hero-banner">
+            <h1>Limited Time Offer on Smart Gadgets!</h1>
+            <p>Save up to 40% on select Fall collections. Shop now!</p>
+            <a href="#shop-section" class="shop-now-btn">Explore Products</a>
+        </section>
 
-    <!-- Featured Products section, visible at first -->
-    <section class="product-grid-container" id="featureProductsSection">
-        <h2>Featured Products</h2>
-        <div class="product-grid" id="featureGrid"></div>
-    </section>
+        <section class="container" id="category-grid">
+            <h2>Shop By Category</h2>
+            <div id="categories" class="category-grid">
+                </div>
+        </section>
+        
+        <section class="container" id="deals-grid">
+            <h2>Today's Best Deals</h2>
+            <div id="deals" class="deals-grid">
+                </div>
+        </section>
 
-    <!-- All Products section, hidden at first -->
-    <section class="product-grid-container" id="allProductsSection" style="display:none;">
-        <h2>All Products</h2>
-        <div class="product-grid" id="allProductsGrid"></div>
-    </section>
-</main>
+        <section class="container" id="shop-section">
+            <h2>Featured Products</h2>
+            <div id="shop" class="shop-grid">
+                </div>
+        </section>
+        <section class="container support-section">
+            <h2>Need Help? We're Here for You.</h2>
+            <div class="support-grid">
+                <div class="support-card">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                    <h3>Feedback</h3>
+                    <p>Share your thoughts and suggestions with our team.</p>
+                    <a href="#" class="support-link">Submit Feedback</a>
+                </div>
+                <div class="support-card">
+                    <i class="fa-solid fa-headset"></i>
+                    <h3>24/7 Support</h3>
+                    <p>Get instant assistance from our live support agents.</p>
+                    <a href="#" class="support-link">Start Chat</a>
+                </div>
+                <div class="support-card">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <h3>FAQs & Help</h3>
+                    <p>Find quick answers to common questions about orders & returns.</p>
+                    <a href="#" class="support-link">Visit Help Center</a>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    <footer class="main-footer">
-        <p>&copy; 2025 GadgetzHub </p>
+    <footer class="footer">
+        <p>&copy; 2025 <span class="gadgetz-brand">Gadgetz</span><span class="hub-brand">Hub</span> E-Commerce Demo. All rights reserved.</p>
     </footer>
-
+    <script src="data.js"></script>
+    <script src="cart.js"></script>
+    <script src="script.js"></script>
 </body>
-
 </html>

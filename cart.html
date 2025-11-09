@@ -1,123 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Shopping Cart - GadgetzHub</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
+
 <body>
-  <header class="main-header">
-    <div class="logo"><a href="index.html" style="color: #ff9900; text-decoration: none;">GadgetzHub</a></div>
-    <nav class="main-nav">
-      <input type="text" placeholder="Search Electronics..." class="search-bar" id="product-search" />
-    </nav>
-    <div class="user-actions">
-      <a href="account.html" class="nav-link">Account</a>
-      <a href="cart.html" class="nav-link cart-icon">Cart (<span id="cart-count">0</span>)</a>
-    </div>
+
+  <header class="navbar">
+    <a href="index.html" class="logo">
+      <i class="fa-solid fa-store"></i> <span class="gadgetz-brand">Gadgetz</span><span class="hub-brand">Hub</span>
+    </a>
+    <a href="wishlist.html" class="wishlist-icon">
+            <i class="fa-solid fa-heart"></i>
+            <span id="wishlistAmount" class="cartAmount">0</span>
+        </a>
+    <a href="cart.html" class="cart-icon">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span id="cartAmount" class="cartAmount">0</span>
+    </a>
   </header>
 
-  <main class="detail-container" style="max-width: 900px; margin: 40px auto;">
-    <h1>Your Cart</h1>
-    <table class="cart-table" style="width: 100%; border-collapse: collapse;">
-      <thead>
-        <tr style="border-bottom: 2px solid #ddd;">
-          <th>Product</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Subtotal</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="cart-items">
-        <!-- Cart items will be injected here -->
-      </tbody>
-    </table>
+  <main class="container">
+    <h2 class="cart-title">Your Shopping Cart</h2>
 
-    <div id="checkout-message" style="color:#ee4b5c; font-weight:bold; margin-top: 15px; display:none;"></div>
+    <div id="shopping-cart" class="shopping-cart">
+    </div>
 
-    <button class="cta-button" style="margin-top: 25px; float: right;" id="checkoutBtn">Proceed to Checkout</button>
+    <div id="label" class="text-center">
+    </div>
+
   </main>
 
-  <footer class="main-footer">
-    <p>&copy; 2025 GadgetzHub </p>
+  <footer class="footer">
+    <p>&copy; 2025 MyStore E-Commerce Demo.</p>
   </footer>
 
-  <script>
-    // Simulated products array and login status
-    const products = [
-      { id: 1, name: "Headphones Pro", price: 99.99 },
-      { id: 2, name: "Bluetooth Speaker", price: 64.99 },
-      { id: 3, name: "Wireless Mouse", price: 29.99 }
-    ];
-
-    const isUserLoggedIn = false; // Change to true if logged in
-
-    // Simulated cart storage (use localStorage in real project)
-    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-    const cartItemsContainer = document.getElementById('cart-items');
-    const checkoutMessage = document.getElementById('checkout-message');
-    const checkoutBtn = document.getElementById('checkoutBtn');
-
-    function renderCart() {
-      cartItemsContainer.innerHTML = "";
-
-      if (cartItems.length === 0) {
-        cartItemsContainer.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 20px;">Your cart is empty.</td></tr>`;
-        checkoutMessage.style.display = "none";
-        checkoutBtn.disabled = true;
-        return;
-      }
-
-      let total = 0;
-
-      cartItems.forEach(item => {
-        let product = products.find(prod => prod.id === item.id);
-        if (!product) return;
-        const subtotal = product.price * item.quantity;
-        total += subtotal;
-
-        cartItemsContainer.innerHTML += `
-          <tr>
-            <td>${product.name}</td>
-            <td>$${product.price.toFixed(2)}</td>
-            <td>${item.quantity}</td>
-            <td>$${subtotal.toFixed(2)}</td>
-            <td><button class="remove-btn" data-id="${product.id}">Remove</button></td>
-          </tr>
-        `;
-      });
-
-      checkoutMessage.style.display = isUserLoggedIn ? "none" : "block";
-      checkoutMessage.textContent = isUserLoggedIn ? "" : "Please log in to proceed to checkout.";
-      checkoutBtn.disabled = !isUserLoggedIn;
-    }
-
-    // Initial render
-    renderCart();
-
-    // Attach remove buttons listener dynamically
-    cartItemsContainer.addEventListener('click', function(event) {
-      if (!event.target.classList.contains('remove-btn')) return;
-
-      const id = parseInt(event.target.getAttribute('data-id'));
-      cartItems = cartItems.filter(item => item.id !== id);
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      renderCart();
-    });
-
-    // Checkout button click handler
-    checkoutBtn.addEventListener('click', () => {
-      if (!isUserLoggedIn) {
-        alert("Please log in to proceed to checkout.");
-        // Redirect to login page logic here...
-      } else {
-        alert("Proceeding to checkout...");
-        // Proceed checkout logic
-      }
-    });
-  </script>
+  <script src="data.js"></script>
+  <script src="cart.js"></script>
 </body>
+
 </html>

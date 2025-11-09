@@ -1,69 +1,73 @@
-// This script assumes data.js has run and 'products' array is available.
-const contentContainer = document.getElementById('product-detail-content');
+let detailContainer = document.getElementById("product-detail-view");
 
-// 1. Get the Product ID from the URL
-function getProductIdFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    return parseInt(params.get('id')); 
-}
+/**
+ * 1. Get Product ID from URL
+ * 2. Find Product Data
+ * 3. Render Detail View
+ */
+let loadProductDetails = () => {
+    // 1. Get the URL parameters (the ID is passed via index.html link)
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
 
-// 2. Find the Product in the Array
-function getProductDetails(id) {
-    return products.find(product => product.id === id);
-}
-
-// 3. Render the Details to the Page
-function renderProduct(product) {
-    contentContainer.innerHTML = '';
-
-    if (!product) {
-        contentContainer.innerHTML = '<h1>Product Not Found</h1><p>Sorry, the product you requested could not be located.</p>';
+    // Handle case where no ID is found (e.g., user navigated directly)
+    if (!productId) {
+        detailContainer.innerHTML = "<h1>Product not found. Please return to the <a href='index.html'>homepage</a>.</h1>";
         return;
     }
 
-    // Template Literals for the detailed layout
-    const detailHTML = `
-        <div class="product-detail-layout">
-            <div class="product-image-area">
-                <img src="${product.image}" alt="${product.name}" style="max-width: 100%; border-radius: 8px;">
-            </div>
+    // 2. Find the product object in the shopItemsData array
+    let product = shopItemsData.find((item) => item.id === productId);
+
+    if (!product) {
+        detailContainer.innerHTML = "<h1>Product data not available.</h1>";
+        return;
+    }
+
+    // Update the page title
+    document.getElementById("pageTitle").innerText = product.name;
+
+    // 3. Render the detail view
+    // Check cart for current quantity (reusing logic from cart.js/script.js)
+    let search = basket.find((x) => x.id === product.id) || {};
+    let itemQuantity = search.item === undefined ? 0 : search.item;
+
+    detailContainer.innerHTML = `
+        <div class="detail-wrapper">
             
-            <div class="product-info-area">
-                <h1>${product.name}</h1>
-                <p class="category">Category: ${product.category}</p>
-                <h2 class="price">$${product.price.toFixed(2)}</h2>
-                
-                <hr>
-                
-                <p>${product.description}</p>
-                
-                <div class="actions">
-                    <button class="cta-button" id="detail-add-to-cart">Add to Cart</button>
-                    <span class="favorite-btn" style="font-size: 2em; margin-left: 20px;">♡</span>
+            <div class="detail-image-area">
+                <img src="${product.img}" alt="${product.name}" class="detail-main-image">
                 </div>
 
-                <div class="specs-section">
-                    <h3>Specifications</h3>
-                    <ul>
-                        <li>Brand: MockTech</li>
-                        <li>Warranty: 1 Year</li>
-                        <li>Detailed Spec: ${product.description.split('.')[0]}</li>
-                    </ul>
+            <div class="detail-info-area">
+                <h1 class="product-name">${product.name}</h1>
+                <p class="product-id">SKU: ${product.id}</p>
+                
+                <h2 class="product-price-large">₹ ${product.price}.00</h2>
+                
+                <p class="product-description-full">${product.desc}
+                    <br><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                </p>
+                
+                <div class="purchase-controls">
+                    <button onclick="addToCart('${product.id}')" class="add-to-cart-large-btn">
+                        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                    </button>
+                    
+                    <div class="current-quantity-text">
+                        ${itemQuantity > 0 ? `<i class="fa-solid fa-check-circle"></i> ${itemQuantity} currently in your cart` : 'Not yet added to cart'}
+                    </div>
                 </div>
+
+                <ul class="spec-list">
+                    <li><i class="fa-solid fa-tag"></i> **Material:** 100% Original Product</li>
+                    <li><i class="fa-solid fa-truck"></i> **Shipping:** Free 3-Day Shipping</li>
+                    <li><i class="fa-solid fa-rotate-left"></i> **Returns:** 10-Day Money Back Guarantee</li>
+                </ul>
+
             </div>
         </div>
     `;
+};
 
-    contentContainer.innerHTML = detailHTML;
-    
-    // Add simple alert for cart on this page
-    document.getElementById('detail-add-to-cart').addEventListener('click', () => {
-        alert(`${product.name} added to cart!`);
-    });
-}
-
-
-// --- EXECUTION ---
-const productId = getProductIdFromUrl();
-const product = getProductDetails(productId);
-renderProduct(product);
+loadProductDetails();

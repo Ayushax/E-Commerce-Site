@@ -1,87 +1,105 @@
-// Initial manually added and detailed products (IDs 1-6)
-const initialProducts = [
-    {
-        id: 1,
-        name: "RTX 4080 Graphics Card",
-        price: 999.99,
-        category: "PC Components",
-        image: "images/placeholder-gpu.jpg",
-        description: "The latest generation GPU for high-performance 4K gaming and creation. Features 16GB VRAM and DLSS 3.",
-        isFeatured: true,
-        link: "product-detail.html?id=1"
-    },
-    {
-        id: 2,
-        name: "32-inch 4K Monitor",
-        price: 450.00,
-        category: "Displays",
-        image: "images/placeholder-monitor.jpg",
-        description: "Fast 144Hz refresh rate and vibrant color accuracy. Perfect for professional and gaming use.",
-        isFeatured: true,
-        link: "product-detail.html?id=2"
-    },
-    {
-        id: 3,
-        name: "Wireless ANC Headphones",
-        price: 179.50,
-        category: "Audio",
-        image: "images/placeholder-headphones.jpg", 
-        description: "Premium sound quality with industry-leading Active Noise Cancellation for deep focus.",
-        isFeatured: true,
-        link: "product-detail.html?id=3"
-    },
-    {
-        id: 4,
-        name: "Ergonomic Mechanical Keyboard",
-        price: 129.00,
-        category: "Peripherals",
-        image: "images/placeholder-keyboard.jpg", 
-        description: "Tactile switches, customizable RGB backlighting, and a wrist rest for comfort.",
-        isFeatured: true,
-        link: "product-detail.html?id=4"
-    },
-    // Your new products:
-    {
-        id: 5,
-        name: "Portable Bluetooth Speaker",
-        price: 64.99,
-        category: "Audio",
-        image: "images/placeholder-speaker.jpg",
-        description: "Compact speaker with deep bass and 12-hour battery life, water-resistant and rugged.",
-        link: "product-detail.html?id=5"
-    },
-    {
-        id: 6,
-        name: "Smart Fitness Watch",
-        price: 119.00,
-        category: "Wearables",
-        image: "images/placeholder-watch.jpg",
-        description: "Track your health, sleep, and activities with notifications and GPS.",
-        link: "product-detail.html?id=6"
-    }
+const shopItemsData = [
+  {
+    id: "item1",
+    name: "HP OMEN Gaming Laptop",
+    price: 45000,
+    desc: "High-performance gaming laptop with 14\" IPS Brightview QHD display, 12th Gen Intel Core i5, 8GB RAM, advanced cooling, and multiple connectivity ports.",
+    img: "images/hp-omen.jpg"
+  },
+  {
+    id: "item2",
+    name: "Lenovo ThinkPad X1 Carbon",
+    price: 39000,
+    desc: "Ultra-light 14\" business laptop featuring Intel Core i7, 16GB RAM, 1TB SSD, durability, security features, and long battery life for professionals on the move.",
+    img: "images/lenovo-x1-carbon.jpg"
+  },
+  {
+    id: "item3",
+    name: "Logitech K980 Wireless Keyboard",
+    price: 1300,
+    desc: "Solar-powered wireless keyboard with Bluetooth, customizable keys, and long battery life for comfortable typing at work or home.",
+    img: "images/logitech-k980.jpg"
+  },
+  {
+    id: "item4",
+    name: "Yamaha PSR-EW410 Portable Keyboard",
+    price: 999,
+    desc: "76-key portable keyboard with touch-sensitive keys, multiple instrument sounds, and lesson functions ideal for beginners and performers.",
+    img: "images/yamaha-psr-ew410.jpg"
+  },
+  {
+    id: "item5",
+    name: "Apple Magic Mouse (USB-C)",
+    price: 4999,
+    desc: "Wireless rechargeable mouse with smooth Multi-Touch surface supporting gestures like swiping and scrolling, pairs seamlessly with Mac devices.",
+    img: "images/apple-magic-mouse.jpg"
+  },
+  {
+    id: "item6",
+    name: "Razer Basilisk Wireless Gaming Mouse",
+    price: 150,
+    desc: "Gaming mouse with customizable 12-button thumb grid, RGB lighting, ergonomic design, and high-precision optical sensor for FPS and MMO gamers.",
+    img: "images/razer-basilisk.jpg"
+  },
+  {
+    id: "item7",
+    name: "Xiaomi Bluetooth Speaker",
+    price: 700,
+    desc: "Portable outdoor speaker delivering 360° omnidirectional sound at 93dB, RGB lighting effects, IP67 water/dust resistance, and 17 hours battery life.",
+    img: "images/xiaomi-bluetooth-speaker.jpg"
+  },
+  {
+    id: "item8",
+    name: "Marshall Acton III Bluetooth Speaker",
+    price: 30000,
+    desc: "Compact home speaker with re-engineered Marshall sound, 30W woofer, two 15W tweeters, and top panel controls for volume, bass, treble, and playback.",
+    img: "images/marshall-acton-iii.jpg"
+  },
+  {
+    id: "item9",
+    name: "Apple Beats Studio Buds",
+    price: 1500,
+    desc: "True wireless earbuds with Active Noise Cancellation, Transparency mode, custom acoustic platform for rich sound, multiple ear tip sizes, 8 hours playtime.",
+    img: "images/apple-beats-studio-buds.jpg"
+  },
+  {
+    id: "item10",
+    name: "JBL Tune 230NC",
+    price: 10000,
+    desc: "Wireless earbuds with advanced noise cancellation, 4 microphones, 40 hours total playtime, clear call quality, and compact design for all-day use.",
+    img: "images/jbl-tune-230nc.jpg"
+  },
+  {
+    id: "item11",
+    name: "Jabra Elite 75t",
+    price: 14000,
+    desc: "Small true wireless earbuds featuring MultiSensor Voice technology with 4 microphones, adjustable ANC, and 7.5 hours battery on a single charge.",
+    img: "images/jabra-elite-75t.jpg"
+  },
+  {
+    id: "item12",
+    name: "HP Spectre x360 Convertible",
+    price: 2000,
+    desc: "Versatile 2-in-1 laptop with 13.5\" OLED display, 13th Gen Intel Core i7, 16GB RAM, 1TB SSD, convertible design for professionals and creatives.",
+    img: "images/hp-spectre-x360.jpg"
+  }
 ];
 
-// --- AUTO-GENERATION FOR MOCK DATA ---
-const autoGeneratedCount = 50;
-const categories = ["Gadgets", "Accessories", "Cables", "Power", "Storage", "Misc"];
-let currentId = 7; // Start IDs after the manual products
+// --- NEW DATA ADDITIONS ---
 
-for (let i = 0; i < autoGeneratedCount; i++) {
-    const category = categories[i % categories.length]; // Cycles through categories
-    const randomPrice = (Math.random() * 200 + 10).toFixed(2); // Price between $10 and $210
-    
-    initialProducts.push({
-        id: currentId,
-        name: `Generic Item ${currentId} - ${category}`,
-        price: parseFloat(randomPrice),
-        category: category,
-        // You can use a single placeholder image for all generic items
-        image: "images/placeholder-generic.jpg", 
-        description: `This is a generic placeholder item, great for testing layouts and filtering, belonging to the ${category} category.`,
-        link: `product-detail.html?id=${currentId}`
-    });
-    currentId++;
-}
+const categoriesData = [
+    { name: "Smartphones", icon: "fa-mobile-screen-button" },
+    { name: "Laptops & PCs", icon: "fa-laptop" },
+    { name: "Audio Gear", icon: "fa-headphones" },
+    { name: "Smart Wearables", icon: "fa-watch" },
+    { name: "Drones & Toys", icon: "fa-drone" },
+    { name: "Home Automation", icon: "fa-lightbulb" }
+];
 
-// Export the final combined list (7 manual + 50 generated = 56 total)
-const products = initialProducts;
+const dealsData = [
+    { title: "Flat 50% Off", text: "On all accessories!", color: "#4CAF50" },
+    { title: "Free Shipping", text: "On orders above ₹1500", color: "#2196F3" },
+    { title: "20% Cashback", text: "Using HDFC Cards", color: "#FF9800" }
+];
+// --- END NEW DATA ADDITIONS ---
+// ... (Your existing shopItemsData array follows)
