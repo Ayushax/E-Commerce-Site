@@ -1,45 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Store Front-End Home</title>
-    <link rel="stylesheet" href="styles.css"> 
-    
-    <script src="data.js"></script> 
-    <script src="script.js" defer></script> 
+    <title> GadgetzHub Home</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="data.js"></script>
+    <script src="script.js" defer></script>
 </head>
+
 <body>
 
     <header class="main-header">
-        <div class="logo"><a href="index.html" style="color: #ff9900; text-decoration: none;">E-Store</a></div>
+        <div class="logo"><a href="index.html" style="color: #ff9900; text-decoration: none;">GadgetzHub</a></div>
         <nav class="main-nav">
-            <input type="text" placeholder="Search Electronics..." class="search-bar">
+            <input type="text" id="product-search" class="search-bar" placeholder="Search Electronics...">
         </nav>
         <div class="user-actions">
-            <a href="#" class="nav-link">Account</a>
-            <a href="#" class="nav-link cart-icon">Cart (<span id="cart-count">0</span>)</a>
+            <div class="user-actions">
+                <a href="account.html" class="nav-link">Account</a>
+                <a href="cart.html" class="nav-link cart-icon">Cart (<span id="cart-count">0</span>)</a>
+            </div>
         </div>
     </header>
 
-    <main>
-        <section class="hero-section">
-            <h1>Deals on Smart Tech: Up to 40% Off!</h1>
-            <p>Explore the latest in high-performance electronics.</p>
-            <a href="#" class="cta-button">Shop Now</a>
-        </section>
+  <main>
+    <section class="hero-section">
+        <h1>Deals on Smart Tech: Up to 40% Off!</h1>
+        <p>Explore the latest in high-performance electronics.</p>
+        <button class="cta-button" id="shopNowBtn">Shop Now</button>
+    </section>
 
-        <section class="product-grid-container">
-            <h2>Featured Products</h2>
-            
-            <div class="product-grid">
-                </div>
-        </section>
-    </main>
+    <!-- Featured Products section, visible at first -->
+    <section class="product-grid-container" id="featureProductsSection">
+        <h2>Featured Products</h2>
+        <div class="product-grid" id="featureGrid"></div>
+    </section>
+
+    <!-- All Products section, hidden at first -->
+    <section class="product-grid-container" id="allProductsSection" style="display:none;">
+        <h2>All Products</h2>
+        <div class="product-grid" id="allProductsGrid"></div>
+    </section>
+</main>
 
     <footer class="main-footer">
-        <p>&copy; 2024 E-Store Front-End Demo</p>
+        <p>&copy; 2025 GadgetzHub </p>
     </footer>
 
 </body>
+
 </html>

@@ -7,6 +7,7 @@ const initialProducts = [
         category: "PC Components",
         image: "images/placeholder-gpu.jpg",
         description: "The latest generation GPU for high-performance 4K gaming and creation. Features 16GB VRAM and DLSS 3.",
+        isFeatured: true,
         link: "product-detail.html?id=1"
     },
     {
@@ -16,6 +17,7 @@ const initialProducts = [
         category: "Displays",
         image: "images/placeholder-monitor.jpg",
         description: "Fast 144Hz refresh rate and vibrant color accuracy. Perfect for professional and gaming use.",
+        isFeatured: true,
         link: "product-detail.html?id=2"
     },
     {
@@ -25,6 +27,7 @@ const initialProducts = [
         category: "Audio",
         image: "images/placeholder-headphones.jpg", 
         description: "Premium sound quality with industry-leading Active Noise Cancellation for deep focus.",
+        isFeatured: true,
         link: "product-detail.html?id=3"
     },
     {
@@ -34,6 +37,7 @@ const initialProducts = [
         category: "Peripherals",
         image: "images/placeholder-keyboard.jpg", 
         description: "Tactile switches, customizable RGB backlighting, and a wrist rest for comfort.",
+        isFeatured: true,
         link: "product-detail.html?id=4"
     },
     // Your new products:
