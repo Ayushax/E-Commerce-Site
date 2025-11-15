@@ -8,7 +8,7 @@ let generateCategories = () => {
 
     categoriesContainer.innerHTML = categoriesData.map((cat) => {
         return `
-            <a href="#" class="category-card">
+            <a href="#" class="category-card reveal">
                 <i class="fa-solid ${cat.icon}"></i>
                 <p>${cat.name}</p>
             </a>
@@ -19,10 +19,10 @@ let generateCategories = () => {
 // --- 2. RENDER DEALS GRID ---
 let generateDeals = () => {
     if (!dealsContainer) return;
-    
+
     dealsContainer.innerHTML = dealsData.map((deal) => {
         return `
-            <div class="deal-card" style="background-color: ${deal.color};">
+            <div class="deal-card reveal" style="background-color: ${deal.color};">
                 <h3>${deal.title}</h3>
                 <p>${deal.text}</p>
                 <a href="#"><i class="fa-solid fa-arrow-right"></i> Shop Now</a>
@@ -32,23 +32,23 @@ let generateDeals = () => {
 };
 
 // Global variable to store the current product set to display (from previous steps)
-let displayedProducts = shopItemsData; 
+let displayedProducts = shopItemsData;
 
 // --- 3. RENDER FEATURED PRODUCTS (Updated to include Wishlist check) ---
 let generateShop = () => {
     if (!shop) return;
-    
+
     // Use the filtered list (or the full list by default)
     shop.innerHTML = displayedProducts.map((product) => {
         let { id, name, price, desc, img } = product;
         let search = basket.find((x) => x.id === id) || {};
         let itemQuantity = search.item === undefined ? 0 : search.item;
-        
+
         // CHECK WISHLIST STATE: If the product ID is in the global wishlist array, set the class 'wishlisted'
         let isWishlisted = wishlist.includes(id) ? 'wishlisted' : '';
 
         return `
-        <div id="product-id-${id}" class="product-card">
+        <div id="product-id-${id}" class="product-card reveal">
             <a href="product-detail.html?id=${id}" class="product-image-link">
                 <img src="${img}" alt="${name}" class="product-image">
             </a>
@@ -66,9 +66,9 @@ let generateShop = () => {
                         <i class="fa-solid fa-heart"></i>
                     </button>
 
-                    <button onclick="addToCart('${id}')" class="add-to-cart-btn">
-                        <i class="fa-solid fa-cart-plus"></i> Add
-                    </button>
+                    <button onclick="handleAddToCart('${id}', event)" class="add-to-cart-btn">
+    <i class="fa-solid fa-cart-plus"></i> Add
+</button>
                 </div>
                 <div class="in-cart-count">
                     ${itemQuantity > 0 ? `<i class="fa-solid fa-check"></i> ${itemQuantity} in cart` : ''}
@@ -77,29 +77,48 @@ let generateShop = () => {
         </div>
         `;
     }).join("");
-    
+
     if (displayedProducts.length === 0) {
         shop.innerHTML = "<p class='no-results'>No products found matching your search criteria.</p>";
     }
 };
-      
+
+// --- NEW WRAPPER FUNCTION FOR VISUAL FEEDBACK ---
+const handleAddToCart = (id, event) => {
+    // 1. Run the core logic from cart.js (defined in previous steps)
+    addToCart(id);
+
+    // 2. Get the button element that was clicked
+    const button = event.currentTarget;
+
+    // 3. Apply the feedback class and text
+    button.classList.add('added-feedback');
+    button.innerHTML = '<i class="fa-solid fa-check"></i> Added!';
+
+    // 4. Reset the button after 1.5 seconds
+    setTimeout(() => {
+        button.classList.remove('added-feedback');
+        button.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Add';
+    }, 1500);
+};
+window.handleAddToCart = handleAddToCart; // Make accessible globally      
 
 // --- 4. NEW FEATURE: SEARCH FUNCTION ---
 const performSearch = () => {
     const query = document.getElementById('searchInput').value.toLowerCase();
-    
+
     // Filter the original shopItemsData based on the query
-    const results = shopItemsData.filter(item => 
-        item.name.toLowerCase().includes(query) || 
+    const results = shopItemsData.filter(item =>
+        item.name.toLowerCase().includes(query) ||
         item.desc.toLowerCase().includes(query)
     );
-    
+
     // Update the global variable
     displayedProducts = results;
-    
+
     // Re-render the shop section with only the results
     generateShop();
-    
+
     // Scroll to the shop section to see results immediately
     document.getElementById('shop-section').scrollIntoView({ behavior: 'smooth' });
 
@@ -111,7 +130,7 @@ const performSearch = () => {
         }
     }
 };
-window.performSearch = performSearch; 
+window.performSearch = performSearch;
 
 // --- 5. RESET SEARCH FUNCTION ---
 const resetSearch = () => {
@@ -130,3 +149,25 @@ window.resetSearch = resetSearch;
 generateCategories();
 generateDeals();
 generateShop();
+
+// --- ADVANCED SCROLL REVEAL LOGIC ---
+window.addEventListener('scroll', reveal);
+
+function reveal() {
+    var reveals = document.querySelectorAll('.reveal');
+
+    for (var i = 0; i < reveals.length; i++) {
+        var windowheight = window.innerHeight;
+        var revealtop = reveals[i].getBoundingClientRect().top;
+        var revealpoint = 150; // Trigger point
+
+        if (revealtop < windowheight - revealpoint) {
+            reveals[i].classList.add('active');
+        } else {
+            // Optional: Remove this else block if you want items to stay visible once revealed
+            reveals[i].classList.remove('active'); 
+        }
+    }
+}
+// Trigger the reveal function once on page load to show top items immediately
+reveal();

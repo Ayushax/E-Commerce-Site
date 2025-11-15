@@ -77,6 +77,10 @@ updateCartIcon(); // Initial call
  * 1. ADD: Adds or increments an item in the cart. 
  * (Used by index.html and product-detail.html)
  */
+/**
+ * Adds or increments an item in the cart. Used by index.html and product-detail.html.
+ * @param {string} id - The unique ID of the product.
+ */
 let addToCart = (id) => {
     let selectedItem = id;
     let search = basket.find((x) => x.id === selectedItem);
@@ -88,12 +92,30 @@ let addToCart = (id) => {
     }
     
     // Rerender cart if we are on the cart page
-    if (shoppingCart) {
+    if (document.getElementById("shopping-cart")) {
         generateCartItems();
     }
     
     updateCartIcon();
     localStorage.setItem("data", JSON.stringify(basket));
+
+    // --- NEW: Trigger Visual Feedback ---
+    animateCartIcon();
+    // The button state change is handled directly in the button's click handler below
+};
+
+// --- NEW FUNCTION: ANIMATE CART ICON ---
+const animateCartIcon = () => {
+    const cartElement = document.querySelector('.cart-icon');
+    if (cartElement) {
+        // 1. Add the animation class
+        cartElement.classList.add('cart-animation');
+        
+        // 2. Remove the class after the animation duration (0.5s)
+        setTimeout(() => {
+            cartElement.classList.remove('cart-animation');
+        }, 500); 
+    }
 };
 
 /**
@@ -148,65 +170,83 @@ let generateCartItems = () => {
             let { img, name, price } = search; // Destructure product details
 
             // Generate HTML for a single cart item
+// Generate HTML for a single cart item
             return `
             <div class="cart-item">
-                <img width="100" src="${img}" alt="${name}" />
+                <img src="${img}" alt="${name}" />
                 <div class="details">
+                    
                     <div class="title-price-x">
                         <h4 class="title-price">
                             <p>${name}</p>
-                            <p class="cart-item-price">₹ ${price}.00</p>
+                            <p class="cart-item-price">${formatINR(price)}</p>
                         </h4>
-                        <i onclick="removeItem('${id}')" class="fa-solid fa-xmark"></i>
                     </div>
 
                     <div class="cart-buttons">
-                        <i onclick="decrement('${id}')" class="fa-solid fa-minus"></i>
+                        <i onclick="decrement('${id}'); generateCartItems();" class="fa-solid fa-minus"></i>
                         <div id="${id}" class="quantity">${item}</div>
-                        <i onclick="addToCart('${id}')" class="fa-solid fa-plus"></i>
+                        <i onclick="addToCart('${id}', event); generateCartItems();" class="fa-solid fa-plus"></i>
                     </div>
-                <p class="cart-item-price">${formatINR(price)}</p>
-                <h3>${formatINR(item * price)}</h3> </div>
+
+                    <h3 class="line-total-price">${formatINR(item * price)}</h3>
+                </div>
+
+                <div class="item-actions-right">
+                    <button onclick="removeItem('${id}')" class="remove-item-btn" title="Remove Item">
+                        <i class="fa-solid fa-trash-alt"></i>
+                    </button>
+                </div>
             </div>
             `;
         }).join("");
     } else {
-        // Display if the cart is empty
+        // --- Code for when the cart is empty ---
         shoppingCart.innerHTML = ``;
-        label.innerHTML = `
-        <h2 class="cart-empty-message">Your Cart is Empty</h2>
+        label.innerHTML = ``; // Clear the summary box
+        
+        // Display the message in the new central container
+        document.getElementById("empty-cart-message").innerHTML = `
+        <h2 class="cart-empty-message">Your Shopping Cart is Empty!</h2>
         <a href="index.html">
             <button class="home-btn">Browse Products</button>
         </a>
         `;
     }
-    // Always call TotalAmount after rendering items
-    TotalAmount(); 
+    // Always call TotalAmount after rendering items (it will handle hiding the totals if needed)
+    TotalAmount();
 };
 
-/**
- * 5. TOTAL CALCULATION: Calculates and displays the grand total and checkout button.
- */
+// Also, ensure the TotalAmount function clears the empty message when cart is NOT empty
+// Function 5. TOTAL CALCULATION: Calculates and displays the grand total and checkout button.
 let TotalAmount = () => {
+    // Clear the empty message container if items are present
+    document.getElementById("empty-cart-message").innerHTML = ``; 
+    
     if (basket.length !== 0) {
+        // --- CORRECTLY CALCULATE AMOUNT INSIDE THE FUNCTION ---
         let amount = basket.map((x) => {
             let { id, item } = x;
-            let search = shopItemsData.find((y) => y.id === id) || [];
+            // Ensure shopItemsData is globally available (from data.js)
+            let search = shopItemsData.find((y) => y.id === id) || { price: 0 }; 
             return item * search.price;
-        }).reduce((x, y) => x + y, 0); // Sum all line totals
+        }).reduce((x, y) => x + y, 0); 
+        // --------------------------------------------------------
 
         label.innerHTML = `
-        <div class="cart-summary-box">
-            <h2>Cart Total: ${formatINR(amount)}</h2>
-            <button class="checkout-btn">Proceed to Checkout</button>
-            <button onclick="clearCart()" class="clear-cart-btn">Clear Cart</button>
-        </div>
+        <div class="summary-header">Order Summary</div>
+            <h2>Total: ${formatINR(amount)}</h2>
+            <p class="shipping-note">Shipping calculated at checkout.</p>
+            <a href="checkout.html">
+                <button class="checkout-btn">Proceed to Checkout</button>
+            </a>
         `;
     } else {
         // Clear summary box if cart is empty
         label.innerHTML = ``;
     }
 };
+// Note: I also wrapped the checkout button in an <a> tag to link to checkout.html
 
 /**
  * 6. CLEAR: Clears the entire cart.

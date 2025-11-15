@@ -29,28 +29,32 @@
         </div>
 
         <div class="checkout-content">
-            <form id="shipping-form" class="checkout-form">
+            <form id="shipping-form" class="checkout-form" onsubmit="handleShipping(event)">
                 <h3>1. Shipping Information</h3>
                 <input type="text" id="fullName" placeholder="Full Name" required>
                 <input type="email" id="email" placeholder="Email Address" required>
                 <input type="text" id="address1" placeholder="Address Line 1" required>
-                <input type="text" id="city" placeholder="City" required>
-                <input type="text" id="zip" placeholder="Zip/Postal Code" required>
+                
+                <div class="form-group-inline">
+                    <input type="text" id="city" placeholder="City" required>
+                    <input type="text" id="zip" placeholder="Zip/Postal Code" required>
+                </div>
+
                 <input type="tel" id="phone" placeholder="Phone Number" required>
                 <button type="submit" class="next-btn">Continue to Payment</button>
             </form>
 
-            <form id="payment-form" class="checkout-form hidden">
+<form id="payment-form" class="checkout-form hidden" onsubmit="handlePayment(event)">
                 <h3>2. Payment Details</h3>
                 <div class="payment-options">
                     <label><input type="radio" name="paymentMethod" value="card" checked> Credit/Debit Card</label>
                     <label><input type="radio" name="paymentMethod" value="paypal"> PayPal (Simulation)</label>
                 </div>
                 
-                <input type="text" id="cardNumber" placeholder="Card Number (XXXX-XXXX-XXXX-XXXX)" pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}" required>
+                <input type="text" id="cardNumber" placeholder="Card Number (Any 16 digits)" required>
                 <input type="text" id="cardName" placeholder="Name on Card" required>
-                <input type="text" id="expiry" placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/\d{2}" required>
-                <input type="text" id="cvv" placeholder="CVV" pattern="\d{3,4}" required>
+                <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" required>
+                <input type="text" id="cvv" placeholder="CVV" maxlength="4" required>
                 
                 <div class="form-actions">
                     <button type="button" class="back-btn" onclick="goToStep(1)">Back to Shipping</button>

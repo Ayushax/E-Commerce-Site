@@ -91,8 +91,12 @@ const categoriesData = [
     { name: "Smartphones", icon: "fa-mobile-screen-button" },
     { name: "Laptops & PCs", icon: "fa-laptop" },
     { name: "Audio Gear", icon: "fa-headphones" },
-    { name: "Smart Wearables", icon: "fa-watch" },
-    { name: "Drones & Toys", icon: "fa-drone" },
+    
+    // --- REPLACED ICON: Use 'fa-clock' or 'fa-watch' if available ---
+    { name: "Wearables", icon: "fa-clock" }, // Using a widely available clock icon ⌚
+    // OR try 'fa-watch' if your current FA version supports it
+    
+    { name: "Drones & Toys", icon: "fa-gamepad" },
     { name: "Home Automation", icon: "fa-lightbulb" }
 ];
 
